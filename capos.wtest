@@ -1,64 +1,51 @@
 import capos.*
 
-describe "tests de rolando y castillo" {
+describe " Punto 1" {
+  test " 1.1 Artefactos en Mochila de Rolando" {
+    rolando.encontrar(espadaDelDestino)
+    rolando.encontrar(libroDeHechizos)
+    rolando.encontrar(libroDeHechizos)
+    assert.equals(#{espadaDelDestino, libroDeHechizos}, rolando.mochila())
+  }
 
-    test "rolando recolecta hasta su capacidad" {
-        rolando.vaciarMochila()
-        rolando.configurarCapacidad(2)
+  test "1.2 Castillo de piedra" {
 
-        rolando.encontrar(espadaDelDestino)
-        rolando.encontrar(libroDeHechizos)
-        rolando.encontrar(collarDivino)
+    rolando.encontrar(espadaDelDestino)
+    rolando.encontrar(libroDeHechizos)
+    rolando.llegarA(castilloDePiedras)
+    assert.equals(#{}, rolando.mochila())
+    
+    rolando.encontrar(collarDivino)
+    rolando.llegarA(castilloDePiedras)
 
-        assert.equals([espadaDelDestino, libroDeHechizos], rolando.artefactos())
-    }
 
-    test "rolando guarda artefactos en el castillo" {
-        rolando.vaciarMochila()
-        castilloDePiedra.artefactos.clear()
+    assert.equals(#{espadaDelDestino, libroDeHechizos, collarDivino}, castilloDePiedras.artefactosEnHogar())
+    assert.equals(#{}, rolando.mochila())
+  }
+  
+  test "1.3 artefactos de rolando" {
 
-        rolando.configurarCapacidad(2)
-        rolando.encontrar(espadaDelDestino)
-        rolando.encontrar(libroDeHechizos)
+    rolando.encontrar(espadaDelDestino)
+    rolando.encontrar(collarDivino)
+    rolando.llegarA(castilloDePiedras)
+    rolando.encontrar(armaduraDeAcero)
+    assert.that(rolando.posee(collarDivino))
+    assert.that(rolando.posee(espadaDelDestino))
+    assert.that(rolando.posee(armaduraDeAcero))
+    assert.notThat(rolando.posee(libroDeHechizos))
+  }
+  test "1.4 Historial de encuentros" {
 
-        rolando.llegarAlCastillo()
+    rolando.encontrar(espadaDelDestino)
+    rolando.encontrar(libroDeHechizos)
+    rolando.encontrar(collarDivino)
+    rolando.llegarA(castilloDePiedras)
+    rolando.encontrar(armaduraDeAcero)
+    rolando.encontrar(collarDivino)
+     assert.equals([espadaDelDestino, libroDeHechizos, collarDivino, armaduraDeAcero, collarDivino], rolando.historialDeEncuentros())
+   
+  }
 
-        rolando.encontrar(collarDivino)
-        rolando.llegarAlCastillo()
 
-        assert.equals([espadaDelDestino, libroDeHechizos, collarDivino], castilloDePiedra.artefactosEnCastillo())
-        assert.equals([], rolando.artefactos())
-    }
 
-    test "rolando sabe todas sus posesiones" {
-        rolando.vaciarMochila()
-        castilloDePiedra.artefactos.clear()
-
-        rolando.encontrar(armaduraValyria)
-        rolando.llegarAlCastillo()
-
-        rolando.encontrar(libroDeHechizos)
-
-        assert.true(rolando.posee(armaduraValyria))
-        assert.true(rolando.posee(libroDeHechizos))
-        assert.false(rolando.posee(collarDivino))
-    }
-
-    test "rolando registra todos los encuentros" {
-        rolando.vaciarMochila()
-        castilloDePiedra.artefactos.clear()
-        rolando.totalEncuentros.clear()
-
-        rolando.encontrar(espadaDelDestino)
-        rolando.encontrar(libroDeHechizos)
-        rolando.encontrar(collarDivino)
-        rolando.llegarAlCastillo()
-        rolando.encontrar(armaduraValyria)
-        rolando.encontrar(collarDivino)
-
-        assert.equals(
-            [espadaDelDestino, libroDeHechizos, collarDivino, armaduraValyria, collarDivino],
-            rolando.encuentros()
-        )
-    }
 }

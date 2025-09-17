@@ -1,58 +1,50 @@
+//-- Personajes--//
 object rolando {
-    var property capacidadMochila = 2
-    var property mochila = []
-    var property totalEncuentros = []
+    var property mochila  = #{}
+    var  property capacidadDeMochila = 2
+    var  property hogar = castilloDePiedras 
+    var property historialDeEncuentros = []
 
-    method encontrar(artefacto) {
-        totalEncuentros.add(artefacto)
-        if (mochila.size() < capacidadMochila) {
-            mochila.add(artefacto)
-        }
+    method configurarCapacidadDeMochila (capacidad){ capacidadDeMochila = capacidad}
+    
+    method encontrar(artefacto){
+       historialDeEncuentros.add(artefacto)
+        if (mochila.size()< capacidadDeMochila) { mochila.add(artefacto)}
     }
+    
+    method artefactosEnMochila(){return mochila}
 
-    method artefactos() {
-        return mochila
-    }
-
-    method configurarCapacidad(nuevaCapacidad) {
-        capacidadMochila = nuevaCapacidad
-    }
-
-    method vaciarMochila() {
+    method llegarA (_hogar){
+        _hogar.recibir(mochila)
         mochila.clear()
     }
-
-    method llegarAlCastillo() {
-        castilloDePiedra.recibir(mochila)
-        vaciarMochila()
+    method posesiones(){
+        return mochila.union(hogar.artefactosEnHogar())
     }
-
-    method posesiones() {
-        return mochila + castilloDePiedra.artefactosEnCastillo()
-    }
-
-    method posee(artefacto) {
-        return posesiones().contains(artefacto)
-    }
-
-    method encuentros() {
-        return totalEncuentros
-    }
+method posee(artefacto) {
+    return self.posesiones().contains(artefacto)
 }
 
-object castilloDePiedra {
-    var property artefactos = []
+    
 
-    method recibir(coleccionArtefactos) {
-        artefactos.addAll(coleccionArtefactos)
-    }
-
-    method artefactosEnCastillo() {
-        return artefactos
-    }
 }
+
+//-- Artefactos --/
 
 object espadaDelDestino {}
 object libroDeHechizos {}
+
 object collarDivino {}
-object armaduraValyria {}
+
+object armaduraDeAcero {}
+
+//-- Hogares-- //
+
+object castilloDePiedras {
+    var property artefactos = #{}
+
+    method recibir (artefactosEnMochila){
+        artefactos = artefactos.union(artefactosEnMochila)
+    }
+  method artefactosEnHogar(){ return artefactos}
+}
