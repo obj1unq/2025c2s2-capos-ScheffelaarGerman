@@ -45,7 +45,57 @@ describe " Punto 1" {
      assert.equals([espadaDelDestino, libroDeHechizos, collarDivino, armaduraDeAcero, collarDivino], rolando.historialDeEncuentros())
    
   }
+}
+describe " Punto 2" {
+  test " 2.1 Poder Inicial " {
+    rolando.poderBase(5)
+    rolando.configurarCapacidadDeMochila(3)
+    rolando.encontrar(espadaDelDestino)
+     rolando.encontrar(armaduraDeAcero)
+     rolando.encontrar(collarDivino)
+     assert.equals(5, rolando.poderBase())
+     assert.equals(19, rolando.poderDePelea())
+     assert.equals(5, rolando.poderBase())
 
+  }
+  test "2.1 Poder despues de la primer batalla"{
+    rolando.poderBase(5)
+    rolando.configurarCapacidadDeMochila(3)
+    rolando.encontrar(espadaDelDestino)
+    rolando.encontrar(armaduraDeAcero)
+    rolando.encontrar(collarDivino)
 
+    rolando.luchar()
+    
+    assert.equals(6, rolando.poderBase())
+    assert.equals(18, rolando.poderDePelea())
+   } 
+    test "2.1 Poder despues de la segunda batalla"{
+    rolando.poderBase(5)
+    rolando.configurarCapacidadDeMochila(3)
+    rolando.encontrar(espadaDelDestino)
+    rolando.encontrar(armaduraDeAcero)
+    rolando.encontrar(collarDivino)
 
+    rolando.luchar()
+    rolando.luchar()
+    
+    assert.equals(7, rolando.poderBase())
+    assert.equals(21.5, rolando.poderDePelea())
+    }
+
+    test "2.1 Poder despues de la tercer batalla"{
+    rolando.poderBase(5)
+    rolando.configurarCapacidadDeMochila(3)
+    rolando.encontrar(espadaDelDestino)
+    rolando.encontrar(armaduraDeAcero)
+    rolando.encontrar(collarDivino)
+
+    rolando.luchar()
+    rolando.luchar()
+    rolando.luchar()
+    
+    assert.equals(8, rolando.poderBase())
+    assert.equals(24, rolando.poderDePelea())
+  }
 }
