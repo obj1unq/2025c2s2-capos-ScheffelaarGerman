@@ -52,6 +52,15 @@ method moradasQuePuedeConquistar() {
   return self.enemigosQuePuedeVencer().map({ enemigo => enemigo.hogar() })
 }
 
+method esPoderosoEnLaTierro(){
+
+}
+
+method esPoderosoEnLaTierra() {
+  var enemigos = [caterina, archibaldo, astra]
+  return enemigos.all({ enemigo => self.poderDePelea() > enemigo.poderDePelea() })
+}
+
 
 }
 //-- Artefactos --/
